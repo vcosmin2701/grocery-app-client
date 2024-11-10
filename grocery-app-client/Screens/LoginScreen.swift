@@ -1,10 +1,3 @@
-//
-//  LoginScreen.swift
-//  grocery-app-client
-//
-//  Created by Vladut Cosmin on 10.11.2024.
-//
-
 import SwiftUI
 
 struct LoginScreen: View {
@@ -61,3 +54,4 @@ struct LoginScreen: View {
             .environmentObject(AppState())
     }
 }
+
