@@ -13,13 +13,21 @@ struct LoginScreen: View {
     
     @State private var username: String = ""
     @State private var password: String = ""
+    @State private var errorMessage: String = ""
     
     private var isFormValid: Bool {
         !username.isEmptyOrWhiteSpace && !password.isEmptyOrWhiteSpace
     }
     
     private func login() async {
-        
+        do {
+            let loginResponseDTO = try await model.login(username: username, password: password)
+            if loginResponseDTO.error {
+                errorMessage = loginResponseDTO.reason ?? ""
+            }
+        } catch {
+            errorMessage = error.localizedDescription
+        }
     }
     
     var body: some View {
@@ -31,11 +39,13 @@ struct LoginScreen: View {
             HStack {
                 Button("Login"){
                     Task {
-                        // login()
+                        await login()
                     }
                 }.buttonStyle(.borderless)
                     .disabled(!isFormValid)
             }
+            
+            Text(errorMessage)
         }
         .navigationTitle("Login")
     }
