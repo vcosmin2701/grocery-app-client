@@ -24,6 +24,8 @@ struct LoginScreen: View {
             let loginResponseDTO = try await model.login(username: username, password: password)
             if loginResponseDTO.error {
                 errorMessage = loginResponseDTO.reason ?? ""
+            } else {
+                // take the user to the grocery 
             }
         } catch {
             errorMessage = error.localizedDescription

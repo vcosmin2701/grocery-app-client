@@ -26,8 +26,6 @@ class GroceryModel: ObservableObject {
             let defaults = UserDefaults.standard
             defaults.set(loginResponseDTO.token!, forKey: "authToken")
             defaults.set(loginResponseDTO.userId!.uuidString, forKey: "userId")
-        } else {
-            throw NetworkError.serverError("Unable to login. Check username and password")
         }
         
         return loginResponseDTO
