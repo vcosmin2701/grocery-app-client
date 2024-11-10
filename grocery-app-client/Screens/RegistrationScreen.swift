@@ -3,6 +3,7 @@ import SwiftUI
 struct RegistrationScreen: View {
     
     @EnvironmentObject private var model: GroceryModel
+    @EnvironmentObject private var appState: AppState
     
     @State private var username: String = ""
     @State private var password: String = ""
@@ -18,6 +19,7 @@ struct RegistrationScreen: View {
             
             if !registerResponseDTO.error {
                 // take the user to the login screen
+                appState.routes.append(.login)
             } else {
                 errorMessage = registerResponseDTO.reason ?? ""
             }
@@ -40,18 +42,47 @@ struct RegistrationScreen: View {
                     }
                 }.buttonStyle(.borderless)
                     .disabled(!isFormValid)
+                
+                Spacer()
+                
+                Button("Login") {
+                    appState.routes.append(.login)
+                }
             }
             
             Text(errorMessage)
-        
+            
         }
         .navigationTitle("Registration")
     }
 }
 
+struct RegistrationScreenContainer: View {
+    
+    @StateObject private var model = GroceryModel()
+    @StateObject private var appState = AppState()
+    
+    var body: some View {
+        NavigationStack(path: $appState.routes){
+            RegistrationScreen()
+                .navigationDestination(for: Route.self) { route in
+                    switch route {
+                    case .register:
+                        RegistrationScreen()
+                    case .login:
+                        LoginScreen()
+                    case .groceryCategoryList:
+                        Text("Grocery Category List")
+                    }
+                }
+        }
+        .environmentObject(model)
+        .environmentObject(appState)
+    }
+}
+
 #Preview {
     NavigationStack {
-        RegistrationScreen()
-            .environmentObject(GroceryModel())
+        RegistrationScreenContainer()
     }
 }
