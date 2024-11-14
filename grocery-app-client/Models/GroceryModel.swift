@@ -1,4 +1,5 @@
 import Foundation
+import grocery_app_shared_dto
 
 class GroceryModel: ObservableObject {
     

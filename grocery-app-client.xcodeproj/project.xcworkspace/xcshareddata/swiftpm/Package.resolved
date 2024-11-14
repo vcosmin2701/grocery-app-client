@@ -1,0 +1,15 @@
+{
+  "originHash" : "78f5de7156d3c327bd11db164a22d02b11c247cb3a967978f6bf6918d5720aba",
+  "pins" : [
+    {
+      "identity" : "grocery-app-dto",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/vcosmin2701/grocery-app-dto.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "51b8b6be0d4d0e80752cbefde9e9f3ed817da7a5"
+      }
+    }
+  ],
+  "version" : 3
+}
